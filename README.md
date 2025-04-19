@@ -35,7 +35,7 @@ Ensure the following tools are installed and configured:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/nelsonwenner/terraform-infra-basic.git
+git clone https://github.com/nelsonwenner/terraform-aws-core-infra.git
 cd terraform-infra-basic
 ```
 
