@@ -82,6 +82,6 @@ output "igw_id" {
   value = aws_internet_gateway.igw.id
 }
 
-output "default_rtb_id" {
+output "public_rtb1_id" {
   value = aws_route_table.public_rtb1.id
 }
