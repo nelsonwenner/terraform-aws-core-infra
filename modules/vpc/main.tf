@@ -80,7 +80,7 @@ resource "aws_internet_gateway" "igw" {
   )
 }
 
-# Creates a public route table with a default route to the Internet Gateway.
+# Creates a public route table1 with a route to the Internet Gateway.
 resource "aws_route_table" "public_rtb1" {
   vpc_id = aws_vpc.vpc.id
 
@@ -97,6 +97,23 @@ resource "aws_route_table" "public_rtb1" {
   )
 }
 
+# Creates a public route table2 with a route to the Internet Gateway.
+resource "aws_route_table" "public_rtb2" {
+  vpc_id = aws_vpc.vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
+
+  tags = merge(
+    {
+      "Name" = "public_rtb2-${var.env}-${var.project_name}-fargate"
+    },
+    var.tags,
+  )
+}
+
 # Associates the first public subnet with the public route table.
 resource "aws_route_table_association" "public_subnet1_public_rtb1_association" {
   subnet_id      = aws_subnet.public_subnet1.id
@@ -104,9 +121,9 @@ resource "aws_route_table_association" "public_subnet1_public_rtb1_association" 
 }
 
 # Associates the second public subnet with the public route table.
-resource "aws_route_table_association" "public_subnet2_public_rtb1_association" {
+resource "aws_route_table_association" "public_subnet2_public_rtb2_association" {
   subnet_id      = aws_subnet.public_subnet2.id
-  route_table_id = aws_route_table.public_rtb1.id
+  route_table_id = aws_route_table.public_rtb2.id
 }
 
 # Creates a private route table for private_subnet1 (initially without routes).
@@ -228,4 +245,11 @@ resource "aws_security_group" "default" {
     protocol  = "-1"
     self      = true
   }
+
+  tags = merge(
+    {
+      "Name" = "sg_vpc-${var.env}-${var.project_name}-fargate"
+    },
+    var.tags,
+  )
 }

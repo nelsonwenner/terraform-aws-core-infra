@@ -47,8 +47,9 @@ resource "aws_route53_record" "record_certificate_validation" {
 # Requests a wildcard ACM certificate for a given domain, using DNS validation.
 # Example: *.example.com will secure any subdomain like api.example.com or www.example.com
 resource "aws_acm_certificate" "cert" {
-  domain_name       = "*.${var.domain_name}"     # Wildcard certificate
-  validation_method = "DNS"                      # DNS-based domain ownership validation
+  domain_name       = var.domain_name                  # Wildcard certificate
+  subject_alternative_names = ["*.${var.domain_name}"] # Additional SANs can be added here
+  validation_method = "DNS"                            # DNS-based domain ownership validation
 
   tags = merge(
     {
@@ -60,4 +61,10 @@ resource "aws_acm_certificate" "cert" {
   lifecycle {
     create_before_destroy = true  # Ensures new cert is created before old one is destroyed during updates
   }
+}
+
+# Triggers ACM validation after record creation.
+resource "aws_acm_certificate_validation" "cert_validation" {
+  certificate_arn         = aws_acm_certificate.cert.arn
+  validation_record_fqdns = [for record in aws_route53_record.record_certificate_validation : record.fqdn]
 }

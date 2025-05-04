@@ -1,14 +1,30 @@
-inputs = {
+remote_state {
+  backend = "s3"
+  generate = {
+    path      = "backend.tf"
+    if_exists = "overwrite"
+  }
+  config = {
+    region           = "us-east-1"
+    bucket           = "terraform-iac-topgear"
+    key              = "${path_relative_to_include()}/terraform.tfstate"
+    encrypt          = true
+  }
+}
+
+locals {
   region            = "us-east-1"
-  project_name      = "zelda_iac"
+  project_name      = "topgear"
   env               = "dev"
   domain_name       = "bigmemo.tech"
   host_headers      = "bigmemo"
-  container_port    = "8080"
+  container_port    = 8080
+
+  image_tag      = "latest"
 
   tags = {
     environment     = "dev"
-    project         = "zelda_iac"
+    project         = "topgear"
     platform        = "aws"
     manager         = "terraform/terragrunt"
   }
