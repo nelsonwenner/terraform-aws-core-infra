@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "terraform_state" {
   bucket = var.bucket_name
-  
+
   tags = {
     Name        = var.bucket_name
     Environment = "global"
@@ -53,18 +53,18 @@ data "aws_iam_policy_document" "terraform_state" {
   statement {
     sid    = "EnforceTLS"
     effect = "Deny"
-    
+
     principals {
       type        = "*"
       identifiers = ["*"]
     }
-    
+
     actions = ["s3:*"]
     resources = [
       aws_s3_bucket.terraform_state.arn,
       "${aws_s3_bucket.terraform_state.arn}/*"
     ]
-    
+
     condition {
       test     = "Bool"
       variable = "aws:SecureTransport"
