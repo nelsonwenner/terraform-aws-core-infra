@@ -2,7 +2,7 @@
 
 ![Architecture Diagram](https://github.com/user-attachments/assets/6a9803f3-0022-43a0-8139-d5a8fe3c1d49)
 
-## 🧾 Description
+## Description
 
 **What problem does this implementation solve?**  
 This repo provides a simple, AWS infrastructure for hosting a TopGear game emulator as a Docker image on ECS/Fargate. It includes networking (VPC, public/private subnets, NAT gateways, route tables), compute (ECS cluster & service), load balancing (ALB + HTTPS), DNS (Route 53 + ACM), storage (ECR), logging (CloudWatch), and IAM roles — all managed via Terraform + Terragrunt.
@@ -19,7 +19,7 @@ This repo provides a simple, AWS infrastructure for hosting a TopGear game emula
 
 ---
 
-## 🛠️ Prerequisites
+## Prerequisites
 
 - **Terraform** ≥ 1.11
 - **Terragrunt** ≥ 0.77
@@ -29,7 +29,7 @@ This repo provides a simple, AWS infrastructure for hosting a TopGear game emula
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```bash
 .
@@ -56,7 +56,7 @@ This repo provides a simple, AWS infrastructure for hosting a TopGear game emula
 
 ---
 
-## ⚙️ Setup & Deployment
+## Setup & Deployment
 
 ### 1. Bootstrap remote state (once)
 
@@ -87,7 +87,7 @@ $ terragrunt run-all destroy
 
 ---
 
-## 🚢 Building & Pushing the TopGear Docker Image
+## Building & Pushing the TopGear Docker Image
 
 1. **Clone the emulator repo**  
    ```bash
@@ -120,7 +120,7 @@ $ terragrunt run-all destroy
 
 ---
 
-## 📝 AWS Resources Used
+## AWS Resources Used
 
 | Category            | Resources                                                                                   |
 |---------------------|---------------------------------------------------------------------------------------------|
@@ -135,14 +135,14 @@ $ terragrunt run-all destroy
 
 ---
 
-## 🔍 About Terraform & Terragrunt
+## About Terraform & Terragrunt
 
 - **Terraform** is a declarative, provider-agnostic IaC tool. We define **what** the infrastructure should look like, and Terraform handles the API calls.  
 - **Terragrunt** is a thin wrapper that allows DRY patterns, remote-state bootstrapping, and orchestration across multiple modules/environments (`run-all`, `plan-all`, etc.).  
 
 ---
 
-## 📖 Further Reading
+## Further Reading
 
 - [Terraform Documentation](https://www.terraform.io/docs)  
 - [Terragrunt GitHub](https://github.com/gruntwork-io/terragrunt)  
