@@ -1,6 +1,6 @@
 # TopGear Emulator on AWS ECS/Fargate
 
-![Architecture Diagram](./docs/architecture_diagram.png)
+![Architecture Diagram](https://github.com/user-attachments/assets/6a9803f3-0022-43a0-8139-d5a8fe3c1d49)
 
 ## 🧾 Description
 
